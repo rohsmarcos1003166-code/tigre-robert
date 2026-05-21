@@ -58,6 +58,7 @@ window.girarSlots = function() {
         return;
     }
 
+    // Deduz o valor investido na rodada
     saldoAtual -= valorAposta;
     contadorRodadas++;
     atualizarDisplayInterface();
@@ -65,6 +66,7 @@ window.girarSlots = function() {
     const botaoGirar = document.getElementById("botao-girar");
     if (botaoGirar) botaoGirar.disabled = true;
 
+    // Dispara a animação visual de giro em cada coluna
     for (let i = 0; i < 3; i++) {
         const containerReel = document.getElementById(`reel-${i}`);
         if (containerReel) containerReel.classList.add("rodando-vertical");
@@ -79,11 +81,13 @@ window.girarSlots = function() {
 function finalizarRodadaEGanho() {
     let matrizResultado = [];
 
+    // Geração 100% Aleatória e Independente para cada um dos 3 rolos
     for (let i = 0; i < 3; i++) {
         const indiceAleatorio = Math.floor(Math.random() * itensDisponiveis.length);
         matrizResultado.push(itensDisponiveis[indiceAleatorio]);
     }
 
+    // Para a animação e injeta os itens misturados na tela de forma variada
     for (let i = 0; i < 3; i++) {
         const containerReel = document.getElementById(`reel-${i}`);
         if (containerReel) {
@@ -96,6 +100,7 @@ function finalizarRodadaEGanho() {
         }
     }
 
+    // Validação de vitória (Apenas se os 3 símbolos sorteados coincidirem de verdade)
     if (matrizResultado[0] === matrizResultado[1] && matrizResultado[1] === matrizResultado[2]) {
         let multiplicador = matrizResultado[0] === "🐯" ? 25 : 5;
         let valorGanhoTotal = valorAposta * multiplicador;
@@ -109,7 +114,7 @@ function finalizarRodadaEGanho() {
     if (botaoGirar) botaoGirar.disabled = false;
 }
 
-/* NOVO BALÃO COM TEMPO EXTREMAMENTE RÁPIDO (FLASH) */
+/* NOVO BALÃO COM TEMPO ACELERADO (FLASH) */
 function dispararBalaoGanhoLimpo(valor) {
     const containerBalao = document.getElementById("container-balao-ganho") || document.body;
     
@@ -119,12 +124,12 @@ function dispararBalaoGanhoLimpo(valor) {
     
     containerBalao.appendChild(elementoBalao);
 
-    // Ajustado para desaparecer quase instantaneamente (400ms)
+    // Ajustado para desaparecer muito mais rápido (800 milissegundos)
     setTimeout(() => {
-        elementoBalao.style.transition = "opacity 0.2s ease";
+        elementoBalao.style.transition = "opacity 0.4s ease";
         elementoBalao.style.opacity = "0";
-        setTimeout(() => elementoBalao.remove(), 200);
-    }, 400);
+        setTimeout(() => elementoBalao.remove(), 400);
+    }, 800);
 }
 
 /* GERENCIADOR DOS MODAIS DE DEPÓSITO */
