@@ -1,154 +1,141 @@
-/* ==========================================
-   RESET E ESTILOS BASE
-   ========================================== */
+/* ===================================================
+   ESTILIZAÇÃO COMPLETA: PLATAFORMA DE APOSTAS NEON
+   =================================================== */
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    -webkit-user-select: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
 }
 
 body {
-    background-color: #0f081d;
+    background-color: #0f0c1b;
     color: #ffffff;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 15px;
 }
 
-/* CONTAINER PRINCIPAL SMARTPHONE */
 #root-game-container {
-    background: linear-gradient(135deg, #1b0e30 0%, #0d0618 100%);
+    background: linear-gradient(180deg, #1a153a 0%, #0d0a21 100%);
     width: 100%;
-    max-width: 410px;
-    border-radius: 24px;
-    padding: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-    border: 1px solid #331b5d;
+    max-width: 430px;
+    min-height: 100vh;
+    padding: 20px 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
-/* FEED DE GANHADORES INSTANTÂNEOS */
+/* Feed de Notificações Pop-up Animado */
 .feed-container {
-    width: 100%;
-    min-height: 32px;
-    margin-bottom: 12px;
+    width: 90%;
+    height: 35px;
+    margin-bottom: 15px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
 .notificacao {
-    background: rgba(0, 230, 118, 0.15);
-    color: #00e676;
-    border: 1px solid rgba(0, 230, 118, 0.3);
-    padding: 6px 14px;
-    border-radius: 30px;
-    font-size: 11pt;
+    background: rgba(0, 255, 133, 0.15);
+    border: 1px solid #00ff85;
+    color: #00ff85;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 12px;
     font-weight: bold;
-    animation: fadeInOut 3s ease-in-out forwards;
-    text-align: center;
-    width: 90%;
+    text-shadow: 0 0 5px rgba(0, 255, 133, 0.5);
+    animation: pulse 2s infinite;
 }
 
-@keyframes fadeInOut {
-    0% { opacity: 0; transform: translateY(-10px); }
-    10% { opacity: 1; transform: translateY(0); }
-    90% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(10px); }
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
 }
 
-/* HEADER DA MARCA */
-.header-plataforma {
-    margin-bottom: 15px;
-    text-align: center;
-}
-
+/* Cabeçalho */
 .header-plataforma h1 {
-    font-size: 20pt;
-    color: #ffb703;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    font-weight: 800;
+    font-size: 24px;
+    color: #ffd700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
 
-/* ÁREA DE SALDO */
+/* Painel de Saldo Dinâmico */
 .painel-saldo {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
     width: 100%;
     padding: 12px;
-    border-radius: 16px;
     text-align: center;
     margin-bottom: 15px;
 }
 
 .label-saldo {
-    font-size: 10pt;
-    color: #a0a0c0;
+    font-size: 11px;
+    color: #a29dbd;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 4px;
 }
 
 .valor-saldo {
-    font-size: 22pt;
-    font-weight: bold;
-    color: #00e676;
-    margin-top: 4px;
-    text-shadow: 0 0 10px rgba(0, 230, 118, 0.2);
+    font-size: 28px;
+    font-weight: 800;
+    color: #00ff85;
+    text-shadow: 0 0 12px rgba(0, 255, 133, 0.4);
 }
 
-/* CONTAINER DOS BOTÕES LADO A LADO */
+/* Botões de Ações Financeiras */
 .container-financeiro-botoes {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
     width: 100%;
-    gap: 12px;
     margin-bottom: 25px;
 }
 
 .btn-financeiro {
-    flex: 1;
     border: none;
-    padding: 14px;
-    font-size: 11pt;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 13px;
     font-weight: bold;
-    border-radius: 14px;
     cursor: pointer;
-    transition: transform 0.1s;
-    text-align: center;
+    transition: transform 0.2s, filter 0.2s;
 }
 
 .btn-financeiro:active {
-    transform: scale(0.96);
+    transform: scale(0.97);
 }
 
 .btn-deposito {
-    background: linear-gradient(90deg, #023e8a 0%, #0077b6 100%);
+    background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
     color: white;
-    box-shadow: 0 4px 15px rgba(0, 119, 182, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
 }
 
 .btn-saque {
-    background: linear-gradient(90deg, #38085c 0%, #5c0d96 100%);
+    background: linear-gradient(90deg, #7b1fa2 0%, #e91e63 100%);
     color: white;
-    border: 1px solid #7b1fa2;
-    box-shadow: 0 4px 15px rgba(92, 13, 150, 0.3);
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
 }
 
-/* CONSTRUÇÃO GEOMÉTRICA DA ROLETA */
+/* Estrutura de Fixação e Moldura da Roleta */
 .container-roleta {
     position: relative;
-    width: 240px;
-    height: 240px;
+    width: 290px;
+    height: 290px;
     margin-bottom: 25px;
 }
 
@@ -157,8 +144,8 @@ body {
     top: -12px;
     left: 50%;
     transform: translateX(-50%);
-    color: #ff4d4d;
-    font-size: 20pt;
+    color: #ff3333;
+    font-size: 24px;
     z-index: 10;
     text-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
@@ -167,109 +154,118 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    padding: 10px;
-    background: radial-gradient(circle, #ffb703 60%, #fb8500 100%);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), inset 0 2px 5px rgba(255,255,255,0.4);
+    border: 9px solid #ffd700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), inset 0 0 15px rgba(0,0,0,0.6);
+    overflow: hidden;
+    position: relative;
+    background-color: #111;
 }
 
 .roleta-corpo {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
-    background: #111;
     position: relative;
-    overflow: hidden;
+    border-radius: 50%;
     transition: transform 4s cubic-bezier(0.1, 0.8, 0.1, 1);
-    border: 4px solid #000;
 }
 
+/* Configuração Geométrica das Fatias (Fundo Alternado Neon) */
 .fatia {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    transform-origin: 50% 50%;
-    display: flex;
-    justify-content: center;
+    width: 50%;
+    height: 50%;
+    transform-origin: 100% 100%;
+    left: 0;
+    top: 0;
 }
 
-.fatia span {
+.fatia-0 { transform: rotate(0deg) skewY(30deg); background-color: #1d183a; border-right: 2px solid #ffd700; }
+.fatia-1 { transform: rotate(60deg) skewY(30deg); background-color: #261f4d; border-right: 2px solid #ffd700; }
+.fatia-2 { transform: rotate(120deg) skewY(30deg); background-color: #1d183a; border-right: 2px solid #ffd700; }
+.fatia-3 { transform: rotate(180deg) skewY(30deg); background-color: #261f4d; border-right: 2px solid #ffd700; }
+.fatia-4 { transform: rotate(240deg) skewY(30deg); background-color: #1d183a; border-right: 2px solid #ffd700; }
+.fatia-5 { transform: rotate(300deg) skewY(30deg); background-color: #261f4d; border-right: 2px solid #ffd700; }
+
+/* Injeção e Alinhamento Preciso das Frutas */
+#roleta .fatia span {
     position: absolute;
-    top: 20px;
-    font-weight: bold;
-    font-size: 14pt;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+    right: 15px;
+    bottom: 15px;
+    font-size: 34px;
+    display: block;
+    /* Remove a distorção gerada pelo skewY da fatia e centraliza o emoji */
+    transform: skewY(-30deg) rotate(-30deg); 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
 }
 
-.fatia-0 { transform: rotate(0deg);   background: radial-gradient(circle at top, #d90429 50%, transparent 55%); color: white; }
-.fatia-1 { transform: rotate(60deg);  background: radial-gradient(circle at top, #2b2d42 50%, transparent 55%); color: #ffb703; }
-.fatia-2 { transform: rotate(120deg); background: radial-gradient(circle at top, #d90429 50%, transparent 55%); color: white; }
-.fatia-3 { transform: rotate(180deg); background: radial-gradient(circle at top, #2b2d42 50%, transparent 55%); color: #ffb703; }
-.fatia-4 { transform: rotate(240deg); background: radial-gradient(circle at top, #d90429 50%, transparent 55%); color: white; }
-.fatia-5 { transform: rotate(300deg); background: radial-gradient(circle at top, #2b2d42 50%, transparent 55%); color: #ffb703; }
-
-/* CONTROLES DE VALOR DE APOSTAS */
+/* Painel Regulador de Aposta */
 .controle-apostas {
     width: 100%;
-    text-align: center;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    padding: 12px;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .titulo-secao {
-    font-size: 11pt;
-    color: #a0a0c0;
+    font-size: 12px;
+    color: #a29dbd;
     margin-bottom: 8px;
+    text-transform: uppercase;
 }
 
 .seletor-aposta {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     gap: 15px;
 }
 
 .btn-ajuste {
-    background: #331b5d;
+    background: #2c2559;
+    border: 1px solid rgba(255,255,255,0.1);
     color: white;
-    border: 1px solid #4c2a85;
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    font-size: 16pt;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.1s;
 }
 
 .btn-ajuste:active {
-    background: #4c2a85;
+    background: #3d337a;
 }
 
 .display-aposta {
-    background: #000000;
-    border: 1px solid #331b5d;
-    min-width: 120px;
-    padding: 10px;
-    font-size: 14pt;
+    font-size: 18px;
     font-weight: bold;
-    border-radius: 12px;
-    color: #ffffff;
+    min-width: 90px;
+    color: #ffd700;
 }
 
-/* BOTÃO DE DISPARO */
+/* Botão de Disparo do Slot */
 .btn-girar {
-    background: linear-gradient(180deg, #ffb703 0%, #fb8500 100%);
-    color: #000000;
+    background: linear-gradient(180deg, #ffb700 0%, #ff8800 100%);
     border: none;
+    color: #0f0c1b;
     width: 100%;
     padding: 16px;
-    font-size: 15pt;
-    font-weight: bold;
-    border-radius: 18px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 800;
     cursor: pointer;
-    box-shadow: 0 6px 20px rgba(251, 133, 0, 0.4);
+    box-shadow: 0 6px 20px rgba(255, 136, 0, 0.4);
+    text-transform: uppercase;
     transition: transform 0.1s;
 }
 
 .btn-girar:active {
-    transform: scale(0.97);
+    transform: scale(0.98);
+    box-shadow: 0 3px 10px rgba(255, 136, 0, 0.2);
 }
