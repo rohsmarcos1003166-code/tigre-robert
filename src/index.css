@@ -1,5 +1,5 @@
 /* ===================================================
-   ESTILIZAÇÃO COMPLETA: PLATAFORMA DE APOSTAS NEON
+   ESTILIZAÇÃO COMPLETA: MAQUINA VERTICAL TIGER REELS
    =================================================== */
 
 * {
@@ -9,9 +9,9 @@
 }
 
 body {
-    background-color: #0f0c1b;
+    background-color: #0b0713;
     color: #ffffff;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,7 +19,8 @@ body {
 }
 
 #root-game-container {
-    background: linear-gradient(180deg, #1a153a 0%, #0d0a21 100%);
+    background: linear-gradient(180deg, #2c0905 0%, #0f0302 100%);
+    border-top: 4px solid #ff3b30;
     width: 100%;
     max-width: 430px;
     min-height: 100vh;
@@ -27,53 +28,45 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.9);
     position: relative;
-    overflow-x: hidden;
 }
 
-/* Feed de Notificações Pop-up Animado */
+/* Feed de Notificações Pop-up */
 .feed-container {
     width: 90%;
     height: 35px;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .notificacao {
-    background: rgba(0, 255, 133, 0.15);
-    border: 1px solid #00ff85;
-    color: #00ff85;
+    background: rgba(255, 215, 0, 0.15);
+    border: 1px solid #ffd700;
+    color: #ffd700;
     padding: 6px 15px;
     border-radius: 20px;
     font-size: 12px;
     font-weight: bold;
-    text-shadow: 0 0 5px rgba(0, 255, 133, 0.5);
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.03); }
-    100% { transform: scale(1); }
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
 }
 
 /* Cabeçalho */
 .header-plataforma h1 {
-    font-size: 24px;
-    color: #ffd700;
+    font-size: 26px;
+    color: #ffcc00;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 15px;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    text-shadow: 0 2px 8px rgba(233, 30, 99, 0.5);
 }
 
-/* Painel de Saldo Dinâmico */
+/* Painel de Saldo */
 .painel-saldo {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid #ff3b30;
     border-radius: 12px;
     width: 100%;
     padding: 12px;
@@ -83,17 +76,17 @@ body {
 
 .label-saldo {
     font-size: 11px;
-    color: #a29dbd;
+    color: #ffb3b0;
     text-transform: uppercase;
     display: block;
     margin-bottom: 4px;
 }
 
 .valor-saldo {
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 800;
     color: #00ff85;
-    text-shadow: 0 0 12px rgba(0, 255, 133, 0.4);
+    text-shadow: 0 0 12px rgba(0, 255, 133, 0.5);
 }
 
 /* Botões de Ações Financeiras */
@@ -102,7 +95,7 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     width: 100%;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .btn-financeiro {
@@ -112,109 +105,100 @@ body {
     font-size: 13px;
     font-weight: bold;
     cursor: pointer;
-    transition: transform 0.2s, filter 0.2s;
-}
-
-.btn-financeiro:active {
-    transform: scale(0.97);
-}
-
-.btn-deposito {
-    background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
     color: white;
-    box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
 }
 
-.btn-saque {
-    background: linear-gradient(90deg, #7b1fa2 0%, #e91e63 100%);
-    color: white;
-    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
-}
+.btn-deposito { background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%); }
+.btn-saque { background: linear-gradient(90deg, #7b1fa2 0%, #e91e63 100%); }
 
-/* Estrutura de Fixação e Moldura da Roleta */
-.container-roleta {
-    position: relative;
-    width: 290px;
-    height: 290px;
-    margin-bottom: 25px;
-}
-
-.marcador-topo {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #ff3333;
-    font-size: 24px;
-    z-index: 10;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-}
-
-.borda-roleta {
+/* MOLDURA E ESTRUTURA VERTICAL DOS REELS (TIGER) */
+.container-slots {
     width: 100%;
+    max-width: 340px;
+    background: #4a0e05;
+    padding: 12px;
+    border-radius: 16px;
+    border: 4px solid #ffd700;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    margin-bottom: 20px;
+}
+
+.moldura-templo {
+    background: #150200;
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    padding: 8px;
+    position: relative;
+    overflow: hidden;
+    height: 234px; /* Altura exata para exibir 3 fileiras perfeitamente */
+}
+
+/* Linha central indicativa de ganho horizontal */
+.linha-ganho-horizontal {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 215, 0, 0.6);
+    box-shadow: 0 0 8px #ffd700;
+    z-index: 5;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.coluna-reel {
+    background: #2a0703;
+    border-radius: 6px;
     height: 100%;
-    border-radius: 50%;
-    border: 9px solid #ffd700;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), inset 0 0 15px rgba(0,0,0,0.6);
     overflow: hidden;
     position: relative;
-    background-color: #111;
+    border: 1px solid rgba(255, 215, 0, 0.15);
 }
 
-.roleta-corpo {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    border-radius: 50%;
-    transition: transform 4s cubic-bezier(0.1, 0.8, 0.1, 1);
-}
-
-/* Configuração Geométrica das Fatias (Fundo Alternado Neon) */
-.fatia {
+.reel-conteudo {
+    display: flex;
+    flex-direction: column;
     position: absolute;
-    width: 50%;
-    height: 50%;
-    transform-origin: 100% 100%;
     left: 0;
     top: 0;
+    width: 100%;
 }
 
-.fatia-0 { transform: rotate(0deg) skewY(30deg); background-color: #1d183a; border-right: 2px solid #ffd700; }
-.fatia-1 { transform: rotate(60deg) skewY(30deg); background-color: #261f4d; border-right: 2px solid #ffd700; }
-.fatia-2 { transform: rotate(120deg) skewY(30deg); background-color: #1d183a; border-right: 2px solid #ffd700; }
-.fatia-3 { transform: rotate(180deg) skewY(30deg); background-color: #261f4d; border-right: 2px solid #ffd700; }
-.fatia-4 { transform: rotate(240deg) skewY(30deg); background-color: #1d183a; border-right: 2px solid #ffd700; }
-.fatia-5 { transform: rotate(300deg) skewY(30deg); background-color: #261f4d; border-right: 2px solid #ffd700; }
-
-/* Injeção e Alinhamento Preciso das Frutas */
-#roleta .fatia span {
-    position: absolute;
-    right: 15px;
-    bottom: 15px;
-    font-size: 34px;
-    display: block;
-    /* Remove a distorção gerada pelo skewY da fatia e centraliza o emoji */
-    transform: skewY(-30deg) rotate(-30deg); 
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    line-height: 50px;
+/* Elementos individuais de Slot (Símbolos) */
+.slot-item {
+    height: 78px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 38px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
-/* Painel Regulador de Aposta */
+/* Animação de Giro Vertical */
+.rodando-vertical {
+    animation: rolarVertical 0.15s linear infinite;
+}
+
+@keyframes rolarVertical {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-234px); }
+}
+
+/* Painel de Controle de Aposta */
 .controle-apostas {
     width: 100%;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     padding: 12px;
-    margin-bottom: 20px;
-    text-align: center;
+    margin-bottom: 15px;
 }
 
 .titulo-secao {
     font-size: 12px;
-    color: #a29dbd;
+    color: #ffb3b0;
     margin-bottom: 8px;
     text-transform: uppercase;
 }
@@ -227,7 +211,7 @@ body {
 }
 
 .btn-ajuste {
-    background: #2c2559;
+    background: #5c1107;
     border: 1px solid rgba(255,255,255,0.1);
     color: white;
     width: 35px;
@@ -238,10 +222,6 @@ body {
     cursor: pointer;
 }
 
-.btn-ajuste:active {
-    background: #3d337a;
-}
-
 .display-aposta {
     font-size: 18px;
     font-weight: bold;
@@ -249,23 +229,105 @@ body {
     color: #ffd700;
 }
 
-/* Botão de Disparo do Slot */
+/* Botão Girar */
 .btn-girar {
-    background: linear-gradient(180deg, #ffb700 0%, #ff8800 100%);
+    background: linear-gradient(180deg, #ffcc00 0%, #ff6600 100%);
     border: none;
-    color: #0f0c1b;
+    color: #2c0905;
     width: 100%;
     padding: 16px;
     border-radius: 12px;
     font-size: 18px;
     font-weight: 800;
     cursor: pointer;
-    box-shadow: 0 6px 20px rgba(255, 136, 0, 0.4);
+    box-shadow: 0 5px 15px rgba(255, 102, 0, 0.4);
     text-transform: uppercase;
-    transition: transform 0.1s;
 }
 
-.btn-girar:active {
-    transform: scale(0.98);
-    box-shadow: 0 3px 10px rgba(255, 136, 0, 0.2);
+/* DESIGN DO MODAL DE DEPÓSITO PIX */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal-content {
+    background: #251210;
+    border: 2px solid #ffd700;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 380px;
+    padding: 20px;
+    box-shadow: 0 0 25px rgba(255,215,0,0.2);
+}
+
+.modal-content h2 {
+    color: #ffd700;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.instrucao-modal {
+    font-size: 12px;
+    color: #ffb3b0;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.campo-input {
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.campo-input label {
+    display: block;
+    font-size: 12px;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+.campo-input input {
+    width: 100%;
+    padding: 10px;
+    background: #120504;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+}
+
+.modal-botoes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-modal-salvar {
+    background: #00ff85;
+    color: #0b0713;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-modal-fechar {
+    background: transparent;
+    color: #ffb3b0;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
 }
