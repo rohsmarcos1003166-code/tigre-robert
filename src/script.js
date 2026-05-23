@@ -68,4 +68,3 @@ window.alterarAposta = (mod) => {
     let valor = parseFloat(display.innerText.replace("R$ ", "").replace(",", ".")) + (mod * 2);
     display.innerText = `R$ ${Math.max(2, valor).toFixed(2).replace(".", ",")}`;
 };
-
