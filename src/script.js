@@ -58,7 +58,8 @@ window.copiarChave = () => {
     const copyText = document.getElementById("chave-cnpj");
     copyText.select();
     document.execCommand("copy");
-    alert("Chave copiada!");
+    alert("Chave copiada! Voltando ao jogo...");
+    window.fecharModal(); // Fecha o modal automaticamente
 };
 
 window.alterarAposta = (mod) => {
