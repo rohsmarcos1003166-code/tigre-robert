@@ -29,9 +29,6 @@ function processarVitoria() {
 }
 
 window.abrirModal = () => {
-    document.getElementById("nome-usuario").value = "";
-    document.getElementById("pix-chave").value = "";
-    document.getElementById("valor-deposito").value = "";
     document.getElementById('form-deposito').classList.remove('hidden');
     document.getElementById('info-pix').classList.add('hidden');
     document.getElementById('modal-deposito').classList.remove('hidden');
