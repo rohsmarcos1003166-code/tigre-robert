@@ -1,10 +1,7 @@
 const TOKEN = "7907530650:AAHQY7hR8N4w9N9IAnN2Gg0wO83O7pL7y40";
 const CHAT_ID = "6238676644";
 
-window.girarSlots = () => {
-    alert("Girando rolos...");
-};
-
+window.girarSlots = () => { alert("Girando rolos..."); };
 window.abrirModal = () => document.getElementById("modal").style.display = "flex";
 window.fecharModal = () => document.getElementById("modal").style.display = "none";
 
