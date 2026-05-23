@@ -19,9 +19,9 @@
         </div>
         <div class="container-slots">
             <div class="moldura-templo">
-                <div class="coluna-reel"><div class="reel-conteudo">🐯</div></div>
-                <div class="coluna-reel"><div class="reel-conteudo">💰</div></div>
-                <div class="coluna-reel"><div class="reel-conteudo">🐯</div></div>
+                <div class="coluna-reel"><div id="reel-0" class="reel-conteudo">🐯</div></div>
+                <div class="coluna-reel"><div id="reel-1" class="reel-conteudo">🐯</div></div>
+                <div class="coluna-reel"><div id="reel-2" class="reel-conteudo">🐯</div></div>
             </div>
         </div>
         <div class="controle-apostas">
@@ -32,7 +32,7 @@
                 <button class="btn-ajuste" onclick="window.alterarAposta(1)">+</button>
             </div>
         </div>
-        <button class="btn-girar" onclick="window.girarSlots()">🎰 GIRAR TIGRE</button>
+        <button id="botao-girar" class="btn-girar" onclick="window.girarSlots()">🎰 GIRAR TIGRE</button>
     </div>
 
     <div id="modal" class="modal-overlay" style="display: none;">
