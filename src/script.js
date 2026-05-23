@@ -16,14 +16,28 @@ window.girarSlots = () => {
             col.querySelectorAll('.simbolo').forEach(d => d.innerText = simbolos[Math.floor(Math.random() * simbolos.length)]);
         });
         giros++;
-        if (giros > 15) clearInterval(intervalo);
+        if (giros > 15) {
+            clearInterval(intervalo);
+            if (Math.random() > 0.6) processarVitoria();
+        }
     }, 100);
 };
+
+function processarVitoria() {
+    let ganho = Math.floor(Math.random() * 50) + 10;
+    let saldoEl = document.getElementById('saldo');
+    let saldoAtual = parseFloat(saldoEl.innerText.replace("R$ ", "").replace(",", "."));
+    saldoEl.innerText = `R$ ${(saldoAtual + ganho).toFixed(2).replace(".", ",")}`;
+    const msg = document.getElementById('notificacao');
+    msg.innerText = `PARABÉNS! VOCÊ GANHOU R$ ${ganho},00!`;
+    msg.classList.remove('hidden');
+    setTimeout(() => msg.classList.add('hidden'), 3000);
+}
 
 window.abrirModal = () => document.getElementById('modal-deposito').classList.remove('hidden');
 window.fecharModal = () => {
     document.getElementById('modal-deposito').classList.add('hidden');
-    contadorGiros = 0; // Reset do ciclo
+    contadorGiros = 0;
 };
 
 window.confirmarDeposito = () => {
