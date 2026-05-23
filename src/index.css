@@ -1,12 +1,54 @@
-body { background: #0b0713; color: white; display: flex; justify-content: center; font-family: sans-serif; margin: 0; padding: 20px; }
-#root-game-container { width: 100%; max-width: 400px; text-align: center; }
-.hidden { display: none; }
-#notificacao { position: fixed; top: 20px; background: #00ff85; color: black; padding: 15px; border-radius: 10px; z-index: 2000; font-weight: bold; }
-.modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:flex; justify-content:center; align-items:center; z-index:1000; }
-.modal-content { background: #1a1a2e; padding: 20px; border-radius: 10px; width: 90%; max-width: 300px; }
-.container-botoes { display: flex; gap: 10px; margin-bottom: 15px; }
-.btn-acao { flex: 1; padding: 10px; border-radius: 5px; border: none; font-weight: bold; cursor: pointer; }
-.container-slots { display: flex; justify-content: center; gap: 5px; background: #331100; padding: 10px; border: 4px solid #ffcc00; border-radius: 10px; }
-.coluna { display: flex; flex-direction: column; gap: 5px; }
-.simbolo { background: black; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; font-size: 40px; border-radius: 5px; }
-.btn-girar { width: 100%; padding: 20px; margin-top: 20px; background: #ff9900; border: none; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 10px; color: white; }
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robert Tiger</title>
+    <link rel="stylesheet" href="src/index.css">
+</head>
+<body>
+    <div id="notificacao" class="hidden">PARABÉNS! VOCÊ GANHOU!</div>
+    
+    <div id="modal-deposito" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 id="modal-titulo">Realize seu Depósito</h2>
+            <div id="form-deposito">
+                <input type="text" id="nome-usuario" placeholder="Seu Nome">
+                <input type="text" id="pix-chave" placeholder="Sua Chave PIX">
+                <input type="number" id="valor-deposito" placeholder="Valor do Depósito">
+                <button class="btn-confirmar" onclick="window.confirmarDeposito()">Confirmar</button>
+                <button class="btn-voltar" onclick="window.fecharModal()">Cancelar</button>
+            </div>
+            <div id="info-pix" class="hidden">
+                <p>Copie nossa chave CNPJ abaixo:</p>
+                <input type="text" id="chave-cnpj" value="23.351.302/0001-00" readonly>
+                <button class="btn-voltar" onclick="window.fecharModal()">Voltar ao Jogo</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="root-game-container">
+        <h1>🐯 ROBERT TIGER</h1>
+        <div class="painel-saldo">SALDO: <span id="saldo">R$ 388,00</span></div>
+        
+        <div class="container-botoes">
+            <button class="btn-acao" onclick="window.abrirModal()">⚡ DEPOSITAR</button>
+            <button class="btn-acao" onclick="alert('Saque solicitado.')">💰 SACAR</button>
+        </div>
+
+        <div class="container-slots">
+            <div class="coluna" id="col-0"><div class="simbolo">🐯</div><div class="simbolo">💰</div><div class="simbolo">🐯</div></div>
+            <div class="coluna" id="col-1"><div class="simbolo">💰</div><div class="simbolo">💎</div><div class="simbolo">💰</div></div>
+            <div class="coluna" id="col-2"><div class="simbolo">🐯</div><div class="simbolo">🍊</div><div class="simbolo">🐯</div></div>
+        </div>
+
+        <div class="controle-apostas">
+            <button onclick="window.alterarAposta(-1)">-</button>
+            <span id="valor-aposta">R$ 2,00</span>
+            <button onclick="window.alterarAposta(1)">+</button>
+        </div>
+        <button class="btn-girar" onclick="window.girarSlots()">🎰 GIRAR TIGRE</button>
+    </div>
+    <script src="src/script.js"></script>
+</body>
+</html>
