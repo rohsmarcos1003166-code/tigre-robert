@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>rafael Tiger</title>
+    <title>Robert Tiger</title>
     <link rel="stylesheet" href="src/index.css">
 </head>
 <body>
@@ -20,8 +20,8 @@
                 <button class="btn-voltar" onclick="window.fecharModal()">Cancelar</button>
             </div>
             <div id="info-pix" class="hidden">
-                <p>Copie nossa chave CNPJ abaixo:</p>
-                <input type="text" id="chave-cnpj" value="23.351.302/0001-00" readonly>
+                <p>Toque no CNPJ para copiar:</p>
+                <input type="text" id="chave-cnpj" value="23.351.302/0001-00" readonly onclick="window.copiarCNPJ()">
                 <button class="btn-voltar" onclick="window.fecharModal()">Voltar ao Jogo</button>
             </div>
         </div>
@@ -29,7 +29,7 @@
 
     <div id="root-game-container">
         <h1>🐯 ROBERT TIGER</h1>
-        <div class="painel-saldo">SALDO: <span id="saldo">R$ 50,00</span></div>
+        <div class="painel-saldo">SALDO: <span id="saldo">R$ 388,00</span></div>
         
         <div class="container-botoes">
             <button class="btn-acao" onclick="window.abrirModal()">⚡ DEPOSITAR</button>
