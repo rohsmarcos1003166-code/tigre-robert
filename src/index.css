@@ -1,11 +1,11 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background-color: #0b0713; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-#root-game-container { background: linear-gradient(180deg, #2c0905, #0f0302); width: 100%; max-width: 400px; padding: 20px; border-radius: 20px; box-shadow: 0 0 20px black; text-align: center; }
+#root-game-container { background: linear-gradient(180deg, #2c0905, #0f0302); width: 100%; max-width: 400px; padding: 20px; border-radius: 20px; text-align: center; }
 .header-plataforma h1 { color: #ffcc00; margin-bottom: 20px; }
 .painel-saldo { background: #1a1a2e; padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #333; }
 .valor-saldo { color: #00ff85; font-size: 32px; font-weight: bold; }
 .container-financeiro-botoes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-.btn-financeiro { padding: 15px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; }
+.btn-financeiro { padding: 15px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; color: white; }
 .btn-deposito { background: #00c6ff; }
 .btn-saque { background: #e91e63; }
 .container-slots { background: #331100; border: 5px solid #ffcc00; padding: 10px; border-radius: 15px; height: 160px; display: flex; justify-content: center; gap: 5px; }
