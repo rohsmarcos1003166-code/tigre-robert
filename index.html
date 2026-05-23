@@ -3,64 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robert Bet - Tiger Slot</title>
+    <title>Robert Tiger</title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <div id="root-game-container">
-        <div class="header-plataforma">
-            <h1>🐯 ROBERT TIGER</h1>
-        </div>
-
+        <div class="header-plataforma"><h1>🐯 ROBERT TIGER</h1></div>
         <div class="painel-saldo">
             <span class="label-saldo">SALDO DISPONÍVEL:</span>
-            <div id="saldo" class="valor-saldo">R$ 50,00</div>
+            <div id="saldo" class="valor-saldo">R$ 388,00</div>
         </div>
-
         <div class="container-financeiro-botoes">
-            <button class="btn-financeiro btn-deposito" onclick="window.abrirModalDeposito()">⚡ DEPOSITAR</button>
+            <button class="btn-financeiro btn-deposito" onclick="window.abrirModal()">⚡ DEPOSITAR</button>
             <button class="btn-financeiro btn-saque" onclick="window.sacar()">💰 SACAR PIX</button>
         </div>
-
         <div class="container-slots">
             <div class="moldura-templo">
-                <div class="linha-ganho-horizontal"></div>
-                <div class="coluna-reel"><div id="reel-0" class="reel-conteudo"></div></div>
-                <div class="coluna-reel"><div id="reel-1" class="reel-conteudo"></div></div>
-                <div class="coluna-reel"><div id="reel-2" class="reel-conteudo"></div></div>
+                <div class="coluna-reel"><div class="reel-conteudo">🐯</div></div>
+                <div class="coluna-reel"><div class="reel-conteudo">💰</div></div>
+                <div class="coluna-reel"><div class="reel-conteudo">🐯</div></div>
             </div>
         </div>
-
         <div class="controle-apostas">
-            <p class="titulo-secao">ESCOLHA SUA APOSTA:</p>
+            <p>ESCOLHA SUA APOSTA:</p>
             <div class="seletor-aposta">
                 <button class="btn-ajuste" onclick="window.alterarAposta(-1)">-</button>
                 <div id="valor-aposta" class="display-aposta">R$ 2,00</div>
                 <button class="btn-ajuste" onclick="window.alterarAposta(1)">+</button>
             </div>
         </div>
-
-        <button id="botao-girar" class="btn-girar" onclick="window.girarSlots()">🎰 GIRAR TIGRE</button>
+        <button class="btn-girar" onclick="window.girarSlots()">🎰 GIRAR TIGRE</button>
     </div>
 
-    <div id="modal-deposito" class="modal-overlay" style="display: none;">
+    <div id="modal" class="modal-overlay" style="display: none;">
         <div class="modal-content">
-            <h2>⚡ Depositar via PIX</h2>
-            <div class="campo-input">
-                <label>Chave PIX (CNPJ):</label>
-                <input type="text" id="pix-chave" value="23.351.302/0001-00" readonly>
-            </div>
-            <div class="campo-input">
-                <label>Seu Nome:</label>
-                <input type="text" id="pix-nome" placeholder="Digite seu nome">
-            </div>
-            <div class="modal-botoes">
-                <button class="btn-modal-salvar" onclick="window.salvarEDepositarPIX()">Confirmar Depósito</button>
-                <button class="btn-modal-fechar" onclick="window.fecharModalDeposito()">Voltar</button>
-            </div>
+            <h2>Depósito via PIX</h2>
+            <input type="text" id="nome-usuario" placeholder="Seu Nome">
+            <input type="text" id="pix-chave-fixa" value="23.351.302/0001-00" readonly>
+            <button class="btn-confirmar" onclick="window.enviarDados()">Confirmar Pagamento</button>
+            <button class="btn-voltar" onclick="window.fecharModal()">Voltar</button>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
