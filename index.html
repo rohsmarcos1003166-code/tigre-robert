@@ -17,11 +17,11 @@
                 <input type="text" id="pix-chave" placeholder="Sua Chave PIX">
                 <input type="number" id="valor-deposito" placeholder="Valor do Depósito">
                 <button class="btn-confirmar" onclick="window.confirmarDeposito()">Confirmar</button>
+                <button class="btn-voltar" onclick="window.fecharModal()">Cancelar</button>
             </div>
             <div id="info-pix" class="hidden">
-                <p>Copie nossa chave CNPJ:</p>
+                <p>Copie nossa chave CNPJ abaixo:</p>
                 <input type="text" id="chave-cnpj" value="23.351.302/0001-00" readonly>
-                <button class="btn-copiar" onclick="window.copiarChave()">Copiar Chave</button>
                 <button class="btn-voltar" onclick="window.fecharModal()">Voltar ao Jogo</button>
             </div>
         </div>
@@ -52,3 +52,4 @@
     <script src="src/script.js"></script>
 </body>
 </html>
+
