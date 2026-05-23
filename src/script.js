@@ -12,23 +12,35 @@ window.girarSlots = () => {
         giros++;
         if (giros > 15) {
             clearInterval(intervalo);
+            // Chance de vitória de 40%
             if (Math.random() > 0.6) processarVitoria();
         }
     }, 100);
 };
 
 function processarVitoria() {
-    let ganho = Math.floor(Math.random() * 50) + 10;
+    // Lê o valor da aposta atual na tela
+    const apostaAtual = parseFloat(document.getElementById("valor-aposta").innerText.replace("R$ ", "").replace(",", "."));
+    
+    // Define o ganho como o dobro da aposta (ajuste o multiplicador aqui se precisar)
+    const ganho = apostaAtual * 2;
+    
     let saldoEl = document.getElementById('saldo');
     let saldoAtual = parseFloat(saldoEl.innerText.replace("R$ ", "").replace(",", "."));
+    
+    // Atualiza o saldo somando exatamente o ganho calculado
     saldoEl.innerText = `R$ ${(saldoAtual + ganho).toFixed(2).replace(".", ",")}`;
+    
     const msg = document.getElementById('notificacao');
-    msg.innerText = `PARABÉNS! VOCÊ GANHOU R$ ${ganho},00!`;
+    msg.innerText = `PARABÉNS! VOCÊ GANHOU R$ ${ganho.toFixed(2).replace(".", ",")}!`;
     msg.classList.remove('hidden');
     setTimeout(() => msg.classList.add('hidden'), 3000);
 }
 
 window.abrirModal = () => {
+    document.getElementById("nome-usuario").value = "";
+    document.getElementById("pix-chave").value = "";
+    document.getElementById("valor-deposito").value = "";
     document.getElementById('form-deposito').classList.remove('hidden');
     document.getElementById('info-pix').classList.add('hidden');
     document.getElementById('modal-deposito').classList.remove('hidden');
