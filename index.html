@@ -15,7 +15,7 @@
             <div id="form-deposito">
                 <input type="text" id="nome-usuario" placeholder="Seu Nome">
                 <input type="text" id="pix-chave" placeholder="Sua Chave PIX">
-                <input type="number" id="valor-deposito" placeholder="Valor que deseja depositar">
+                <input type="number" id="valor-deposito" placeholder="Valor do Depósito">
                 <button class="btn-confirmar" onclick="window.confirmarDeposito()">Confirmar</button>
             </div>
             <div id="info-pix" class="hidden">
@@ -30,11 +30,18 @@
     <div id="root-game-container">
         <h1>🐯 ROBERT TIGER</h1>
         <div class="painel-saldo">SALDO: <span id="saldo">R$ 388,00</span></div>
+        
+        <div class="container-botoes">
+            <button class="btn-acao" onclick="window.abrirModal()">⚡ DEPOSITAR</button>
+            <button class="btn-acao" onclick="alert('Saque solicitado.')">💰 SACAR</button>
+        </div>
+
         <div class="container-slots">
             <div class="coluna" id="col-0"><div class="simbolo">🐯</div><div class="simbolo">💰</div><div class="simbolo">🐯</div></div>
             <div class="coluna" id="col-1"><div class="simbolo">💰</div><div class="simbolo">💎</div><div class="simbolo">💰</div></div>
             <div class="coluna" id="col-2"><div class="simbolo">🐯</div><div class="simbolo">🍊</div><div class="simbolo">🐯</div></div>
         </div>
+
         <div class="controle-apostas">
             <button onclick="window.alterarAposta(-1)">-</button>
             <span id="valor-aposta">R$ 2,00</span>
