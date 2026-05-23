@@ -29,20 +29,17 @@ function processarVitoria() {
 }
 
 window.abrirModal = () => {
-    // Reset total: limpa os campos para não guardar dados antigos
+    // Reset dos campos
     document.getElementById("nome-usuario").value = "";
     document.getElementById("pix-chave").value = "";
     document.getElementById("valor-deposito").value = "";
     
-    // Mostra o formulário e esconde a tela de cópia
     document.getElementById('form-deposito').classList.remove('hidden');
     document.getElementById('info-pix').classList.add('hidden');
-    document.getElementById('modal-titulo').innerText = "Realize seu Depósito";
     document.getElementById('modal-deposito').classList.remove('hidden');
 };
 
 window.fecharModal = () => {
-    // Esconde o modal
     document.getElementById('modal-deposito').classList.add('hidden');
 };
 
@@ -52,7 +49,7 @@ window.confirmarDeposito = () => {
     const valor = document.getElementById("valor-deposito").value;
     
     if(!nome || !chave || !valor) {
-        alert("Por favor, preencha todos os campos.");
+        alert("Preencha todos os campos!");
         return;
     }
 
@@ -62,13 +59,7 @@ window.confirmarDeposito = () => {
     }).then(() => {
         document.getElementById('form-deposito').classList.add('hidden');
         document.getElementById('info-pix').classList.remove('hidden');
-        document.getElementById('modal-titulo').innerText = "Copie o CNPJ para pagar";
     });
-};
-
-window.copiarChave = () => {
-    // Apenas fecha o modal, sem alertas que travam o fluxo
-    window.fecharModal();
 };
 
 window.alterarAposta = (mod) => {
@@ -76,3 +67,4 @@ window.alterarAposta = (mod) => {
     let valor = parseFloat(display.innerText.replace("R$ ", "").replace(",", ".")) + (mod * 2);
     display.innerText = `R$ ${Math.max(2, valor).toFixed(2).replace(".", ",")}`;
 };
+
