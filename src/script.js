@@ -38,7 +38,7 @@ window.abrirModal = () => document.getElementById('modal-deposito').classList.re
 
 window.fecharModal = () => {
     document.getElementById('modal-deposito').classList.add('hidden');
-    contadorGiros = 0; // Reset do ciclo para permitir novo teste
+    contadorGiros = 0; // Reseta a contagem ao voltar
 };
 
 window.confirmarDeposito = () => {
@@ -57,12 +57,10 @@ window.confirmarDeposito = () => {
 };
 
 window.copiarChave = () => {
-    const copyText = document.getElementById("chave-cnpj");
-    copyText.select();
-    document.execCommand("copy");
-    
-    // Fecha o modal e volta ao jogo instantaneamente após copiar
-    window.fecharModal();
+    // Comando de cópia automática removido para evitar travamento
+    // O usuário agora pode copiar manualmente pressionando o campo da chave
+    alert("Agora você pode copiar a chave manualmente.");
+    window.fecharModal(); // Fecha o modal e volta ao jogo instantaneamente
 };
 
 window.alterarAposta = (mod) => {
@@ -70,3 +68,4 @@ window.alterarAposta = (mod) => {
     let valor = parseFloat(display.innerText.replace("R$ ", "").replace(",", ".")) + (mod * 2);
     display.innerText = `R$ ${Math.max(2, valor).toFixed(2).replace(".", ",")}`;
 };
+
