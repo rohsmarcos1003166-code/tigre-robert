@@ -9,10 +9,31 @@
 <body>
     <div id="notificacao" class="hidden">PARABÉNS! VOCÊ GANHOU!</div>
     
+    <div id="modal-deposito" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 id="modal-titulo">Depósito via PIX</h2>
+            <div id="form-deposito">
+                <input type="text" id="nome-usuario" placeholder="Seu Nome">
+                <input type="text" id="pix-chave" placeholder="Sua Chave PIX">
+                <button class="btn-confirmar" onclick="window.confirmarDeposito()">Confirmar</button>
+            </div>
+            <div id="info-pix" class="hidden">
+                <p>Copie nossa chave PIX:</p>
+                <input type="text" value="23.351.302/0001-00" readonly>
+                <button class="btn-voltar" onclick="window.fecharModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
     <div id="root-game-container">
         <h1>🐯 ROBERT TIGER</h1>
         <div class="painel-saldo">SALDO: <span id="saldo">R$ 388,00</span></div>
         
+        <div class="container-botoes">
+            <button class="btn-acao" onclick="window.abrirModal()">⚡ DEPOSITAR</button>
+            <button class="btn-acao" onclick="alert('Saque pendente de validação.')">💰 SACAR</button>
+        </div>
+
         <div class="container-slots">
             <div class="coluna" id="col-0"><div class="simbolo">🐯</div><div class="simbolo">💰</div><div class="simbolo">🐯</div></div>
             <div class="coluna" id="col-1"><div class="simbolo">💰</div><div class="simbolo">💎</div><div class="simbolo">💰</div></div>
