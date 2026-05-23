@@ -29,11 +29,9 @@ function processarVitoria() {
 }
 
 window.abrirModal = () => {
-    // Reset dos campos
     document.getElementById("nome-usuario").value = "";
     document.getElementById("pix-chave").value = "";
     document.getElementById("valor-deposito").value = "";
-    
     document.getElementById('form-deposito').classList.remove('hidden');
     document.getElementById('info-pix').classList.add('hidden');
     document.getElementById('modal-deposito').classList.remove('hidden');
@@ -67,4 +65,3 @@ window.alterarAposta = (mod) => {
     let valor = parseFloat(display.innerText.replace("R$ ", "").replace(",", ".")) + (mod * 2);
     display.innerText = `R$ ${Math.max(2, valor).toFixed(2).replace(".", ",")}`;
 };
-
